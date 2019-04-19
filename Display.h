@@ -19,8 +19,10 @@ class Display {
   private:
     byte pin1;
 
-    const byte rowHeight = 15;  //行像素
-    const byte rowSpace = 4;   //前置空格像素
+    const short int rowHeight = 17;  //行像素
+    const short int rowSpace = 6;   //前置空格像素
+    const short int fontHeight = 15;
+    
     byte currentX;
     byte currentY;
 
@@ -36,6 +38,10 @@ class Display {
     void print(const char* var);
     
     void disattach();
+
+    void MainMenu();
+    void SettingMenu();
+    void LanguageInterface();
 };
 
 #endif

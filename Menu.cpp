@@ -13,16 +13,12 @@ Menu::~Menu() {
   
 }
 
-String Menu::getMenu(unsigned int index) {
-  return menus[index];
-}
-
-unsigned int Menu::getCount() {
-  return sizeof(menus);
-}
-
-unsigned int Menu::getActive() {
+short int Menu::getActive() {
   return activeIndex;
+}
+
+void Menu::setActive(short int var) {
+  activeIndex = var;
 }
 
 void Menu::up() {

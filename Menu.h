@@ -12,18 +12,18 @@ using namespace std;
 
 class Menu {
   private:
-    String menus[3] = {"Start", "Setting...", "Help..."};
-    String menus_en[3] = {"Start", "Setting...", "Help..."};
-    String menus_cn[3] = {"开始", "设置...", "帮助..."};
-    unsigned int activeIndex = 0;
+    short int activeIndex = 0;
     
   public:
+    String menus[3] = {"开始", "设置...", "帮助..."};
+//  String menus[3] = {" Start ", " Seting... ", " Help... "};
+    
     Menu();
     ~Menu();
 
-    String getMenu(unsigned int index);
-    unsigned int getCount();
-    unsigned int getActive();
+    short int getActive();
+    void setActive(short int var);
+    
     void up();
     void down();
     
