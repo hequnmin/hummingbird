@@ -13,21 +13,21 @@ Menu::~Menu() {
   
 }
 
-short int Menu::getActive() {
-  return activeIndex;
+short int Menu::getCursor() {
+  return cursor;
 }
 
-void Menu::setActive(short int var) {
-  activeIndex = var;
+void Menu::setCursor(short int var) {
+  cursor = var;
 }
 
 void Menu::up() {
-  if (activeIndex < (sizeof(menus) - 1)) {
-    activeIndex = activeIndex + 1;
+  if (cursor < (sizeof(menus) - 1)) {
+    cursor = cursor + 1;
   }
 }
 void Menu::down() {
-  if (activeIndex > 0) {
-    activeIndex = activeIndex - 1;
+  if (cursor > 0) {
+    cursor = cursor - 1;
   }
 }

@@ -19,8 +19,8 @@ class Display {
   private:
     byte pin1;
 
-    const short int rowHeight = 17;  //行像素
-    const short int rowSpace = 6;   //前置空格像素
+    const short int rowHeight = 15;  //行像素
+    const short int rowSpace = 15;   //前置空格像素
     const short int fontHeight = 15;
     
     byte currentX;

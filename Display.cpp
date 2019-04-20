@@ -61,25 +61,22 @@ void Display::disattach() {
 }
 
 void Display::MainMenu() {
-  u8g2.setFont(u8g2_font_wqy12_t_gb2312b);
+  
   u8g2.setFontDirection(0);
   u8g2.setFontMode(0);
   u8g2.firstPage();
   short int menuCount = sizeof(menu.menus) / sizeof(menu.menus[0]);
-  short int menuActive = menu.getActive();
+  short int menuCursor = menu.getCursor();
   do {
-    for (short int i = 0; i < menuCount; i++ ) {
-//      if (i == menuActive) {
-//        u8g2.setDrawColor(0);
-//      } else {
-//        u8g2.setDrawColor(1);
-//      }
-      if (i == menuActive) {
-        u8g2.drawFrame(rowSpace - 4, 1 + i * rowHeight, 60, rowHeight);
-      }
-      u8g2.setCursor(rowSpace, (i+1) * rowHeight - 2);
+    u8g2.setFont(u8g2_font_wqy12_t_gb2312b);
+    for (short int i = 0; i < menuCount; i++ ) { 
+      u8g2.setCursor(rowSpace, (i + 1) * rowHeight);
       u8g2.print(menu.menus[i]);
     }
+
+    //游标
+    u8g2.setFont(u8g2_font_unifont_t_symbols);
+    u8g2.drawGlyph(2, (menuCursor + 1) * rowHeight, 0x23f5);
   } while ( u8g2.nextPage() );
 }
 

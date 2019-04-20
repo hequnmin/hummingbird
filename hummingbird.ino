@@ -32,6 +32,7 @@ void loop() {
 
 //  display.HelloWorld();
   display.MainMenu();
+//  display.LanguageInterface();
 
 //  String ver = config.getVersion();
 //  Serial.print("Version:");
