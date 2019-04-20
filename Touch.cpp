@@ -4,21 +4,21 @@
 
 #include "Arduino.h"
 
-#define pinPrevious 16
+#define pinPrev 16
 #define pinNext 5
-#define pinReturn 4
+#define pinCancel 4
 #define pinOk 0
 
 
 Touch::Touch() {
-  pinMode(pinPrevious, INPUT);
+  pinMode(pinPrev, INPUT);
   pinMode(pinNext, INPUT);
-  pinMode(pinReturn, INPUT);
+  pinMode(pinCancel, INPUT);
   pinMode(pinOk, INPUT);
 
-  digitalWrite(pinPrevious, LOW);
+  digitalWrite(pinPrev, LOW);
   digitalWrite(pinNext, LOW);
-  digitalWrite(pinReturn, LOW);
+  digitalWrite(pinCancel, LOW);
   digitalWrite(pinOk, LOW);
 }
 
@@ -28,13 +28,20 @@ Touch::~Touch(){
 
 void Touch::disattach()
 {
-  pinMode(pinPrevious, INPUT);
+  pinMode(pinPrev, INPUT);
   pinMode(pinNext, INPUT);
-  pinMode(pinReturn, INPUT);
+  pinMode(pinCancel, INPUT);
   pinMode(pinOk, INPUT);
 
-  digitalWrite(pinPrevious, LOW);
+  digitalWrite(pinPrev, LOW);
   digitalWrite(pinNext, LOW);
-  digitalWrite(pinReturn, LOW);
+  digitalWrite(pinCancel, LOW);
   digitalWrite(pinOk, LOW);
+}
+
+void Touch::ScanTouch(){
+  pressPrev = digitalRead(pinPrev);
+  pressNext = digitalRead(pinNext);
+  pressCancel = digitalRead(pinCancel);
+  pressOk = digitalRead(pinOk);
 }

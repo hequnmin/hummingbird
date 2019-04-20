@@ -7,15 +7,17 @@
 
 class Touch {
   private:
-    byte pin1;
-    byte pin2;
-    byte pin3;
-    byte pin4;
+
 
   public:
+    bool pressPrev;
+    bool pressNext;
+    bool pressCancel;
+    bool pressOk;
+    
     Touch();
     ~Touch();
-    byte ScanTouch();
+    void ScanTouch();
     void disattach();
 };
 

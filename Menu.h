@@ -5,14 +5,25 @@
 
 #include <Arduino.h>
 
-#include <iostream>
-#include <list>
-
-using namespace std;
+#include <U8g2lib.h>
+#ifdef U8X8_HAVE_HW_SPI
+#include <SPI.h>
+#endif
+#ifdef U8X8_HAVE_HW_I2C
+#include <Wire.h>
+#endif
 
 class Menu {
   private:
     short int cursor = 0;
+
+
+    const short int rowHeight = 15;  //行像素
+    const short int rowSpace = 15;   //前置空格像素
+    const short int fontHeight = 15;
+    
+    short int currentX = 0;
+    short int currentY = 0;
     
   public:
     String menus[3] = {"开始", "设置...", "帮助..."};
@@ -20,12 +31,18 @@ class Menu {
     
     Menu();
     ~Menu();
+    
+    void InitDisplay();
+
+    void DisplayHelloWorld();
+    void DisplayMainMenu();
 
     short int getCursor();
     void setCursor(short int var);
     
-    void up();
-    void down();
+    void CursorPrev();
+    void CursorNext();
+    void DisplayLanguageInterface();
     
 };
 
