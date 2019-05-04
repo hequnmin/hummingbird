@@ -1,6 +1,7 @@
 
 
 #include "Menu.h"
+#include "Config.h"
 
 #include <Arduino.h>
 
@@ -12,7 +13,11 @@
 #include <Wire.h>
 #endif
 
-U8G2_SSD1306_128X64_NONAME_1_SW_I2C u8g2(U8G2_R0, /* clock=*/ D4, /* data=*/ D5, /* reset=*/ U8X8_PIN_NONE);   // All Boards without Reset of the Display
+//U8G2_SSD1306_128X64_NONAME_1_SW_I2C u8g2(U8G2_R0, /* clock=*/ SCL, /* data=*/ SDA, /* reset=*/ U8X8_PIN_NONE);   // All Boards without Reset of the Display
+U8G2_SSD1306_128X64_NONAME_1_SW_I2C u8g2(U8G2_R0, /* clock=*/ D1, /* data=*/ D2, /* reset=*/ U8X8_PIN_NONE);   // All Boards without Reset of the Display
+//U8G2_SSD1306_128X64_NONAME_1_SW_I2C u8g2(U8G2_R0, /* clock=*/ 5, /* data=*/ 4, /* reset=*/ U8X8_PIN_NONE);   // All Boards without Reset of the Display
+
+Config config;
 
 Menu::Menu() {
 
@@ -73,6 +78,7 @@ void Menu::CursorPrev() {
     cursor = cursor - 1;
   }
 }
+
 void Menu::CursorNext() {
   short int menuCount = sizeof(menus) / sizeof(menus[0]);
   if (cursor < (menuCount - 1)) {
@@ -89,5 +95,18 @@ void Menu::DisplayLanguageInterface() {
   do {
     u8g2.setFontRefHeightAll();   
     u8g2.userInterfaceMessage("", "中文-简体", "English", " OK \n Cancel ");
+  } while ( u8g2.nextPage() );
+}
+
+void Menu::DisplayHelpInterface() {
+  u8g2.setFont(u8g2_font_wqy12_t_gb2312b);
+  u8g2.setFontDirection(0);
+  u8g2.setFontMode(0);
+  u8g2.firstPage();
+  do {
+    u8g2.setCursor(rowSpace, rowHeight);
+    u8g2.print("版本:" + config.getVersion());
+    u8g2.setCursor(rowSpace, 2 * rowHeight);
+    u8g2.print("序列号:" + config.getChipid());
   } while ( u8g2.nextPage() );
 }

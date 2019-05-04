@@ -9,7 +9,7 @@ class Config {
     const char* fileName = "/config.json";
     const char* ver = "0.0.1";
     const char* lang = "en";
-    const char* chipid = "xx-xxx-xxxx";
+    const char* chipid = "xx-xxxx";
   
 
   public:
@@ -22,6 +22,7 @@ class Config {
     bool fileListing();
 
     String getVersion();
+    String getChipid();
     String getLanguage();
     
     void setVersion(const char* var);

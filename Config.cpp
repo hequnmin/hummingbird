@@ -119,6 +119,10 @@ String Config::getVersion() {
   return ver;
 }
 
+String Config::getChipid() {
+  return chipid;
+}
+
 String Config::getLanguage() {
   return lang;
 }

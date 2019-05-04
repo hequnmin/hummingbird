@@ -21,13 +21,15 @@ class Menu {
     const short int rowHeight = 15;  //行像素
     const short int rowSpace = 15;   //前置空格像素
     const short int fontHeight = 15;
+
+    const short int pageSize = 4;   //每页记录数
     
     short int currentX = 0;
     short int currentY = 0;
     
   public:
-    String menus[3] = {"开始", "设置...", "帮助..."};
-//  String menus[3] = {"Start ", "Seting...", " Help..."};
+    String menus[5] = {"开始", "电机", "温度", "设置...", "帮助..."};
+//    String menus[3] = {"Start ", "Seting...", " Help..."};
     
     Menu();
     ~Menu();
@@ -43,6 +45,7 @@ class Menu {
     void CursorPrev();
     void CursorNext();
     void DisplayLanguageInterface();
+    void DisplayHelpInterface();
     
 };
 

@@ -4,10 +4,10 @@
 
 #include "Arduino.h"
 
-#define pinPrev 16
-#define pinNext 5
-#define pinCancel 4
-#define pinOk 0
+#define pinPrev 14
+#define pinNext 12
+#define pinCancel 13
+#define pinOk 15
 
 
 Touch::Touch() {

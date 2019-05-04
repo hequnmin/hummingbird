@@ -1,4 +1,11 @@
 
+/*
+ *            
+ * 
+ * 
+ * 
+ */
+
 
 #include <string>
 #include <iostream>
@@ -11,10 +18,11 @@ using namespace std;
 
 Menu menu;
 Touch touch;
-Config config;
+Config cf;
 
 bool displayMainMenu = true;
-bool displayLanguageInterface =false;
+bool displayLanguageInterface = false;
+bool displayHelpInterface = false;
 
 bool pressPrev = false;
 bool pressNext = false;
@@ -46,12 +54,17 @@ void loop() {
     menu.DisplayLanguageInterface();
   }
 
+  // 显示帮助界面
+  if (displayHelpInterface) {
+    menu.DisplayHelpInterface();
+  }
+
   if (!pressCancel && touch.pressCancel) {
+    Serial.println("touch cancel.");
     displayMainMenu = true;
     displayLanguageInterface = false;
   }
 
-  // 按下
   if (!pressNext && touch.pressNext) {
     menu.CursorNext();
   } 
@@ -62,9 +75,21 @@ void loop() {
   }
   pressPrev = touch.pressPrev;
 
+  // 设置
   if (menu.getCursor() == 1 && (!pressOk && touch.pressOk)) {
     displayMainMenu = false;
     displayLanguageInterface = true;
   }
-  
+
+  // 帮助
+  if (menu.getCursor() == 2) {
+    if (!pressOk && touch.pressOk) {
+      displayMainMenu = false;
+      displayHelpInterface = true;
+    } 
+    if (!pressCancel && touch.pressCancel) {
+      displayMainMenu = true;
+      displayHelpInterface = false;
+    }
+  }
 }
