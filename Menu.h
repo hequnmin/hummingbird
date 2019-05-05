@@ -28,8 +28,21 @@ class Menu {
     short int currentY = 0;
     
   public:
-    String menus[5] = {"开始", "电机", "温度", "设置...", "帮助..."};
-//    String menus[3] = {"Start ", "Seting...", " Help..."};
+    const String menus[5] = {"开始", "电机", "温度", "设置...", "帮助..."};
+
+    const char *string_list = 
+      "Altocumulus\n"
+      "Altostratus\n"
+      "Cirrocumulus\n"
+      "Cirrostratus\n"
+      "Cirrus\n"
+      "Cumulonimbus\n"
+      "Cumulus\n"
+      "Nimbostratus\n"
+      "Stratocumulus\n"
+      "Stratus";
+    uint8_t current_selection = 1;
+    
     
     Menu();
     ~Menu();
@@ -46,6 +59,11 @@ class Menu {
     void CursorNext();
     void DisplayLanguageInterface();
     void DisplayHelpInterface();
+
+    uint8_t userInterface(uint8_t pos, const char *menus);
+
+    uint8_t GetStringLineCnt(const char *str);
+    const char *GetStringLineStart(uint8_t line_idx, const char *str);
     
 };
 

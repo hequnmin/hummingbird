@@ -1,4 +1,6 @@
 
+#include <string.h>
+#include <stdio.h>
 
 #include "Menu.h"
 #include "Config.h"
@@ -30,6 +32,7 @@ Menu::~Menu() {
 void Menu::InitDisplay() {
   u8g2.begin();
   u8g2.enableUTF8Print();
+  u8g2.setFont(u8g2_font_wqy12_t_gb2312b);
 }
 
 void Menu::DisplayHelloWorld() {
@@ -109,4 +112,76 @@ void Menu::DisplayHelpInterface() {
     u8g2.setCursor(rowSpace, 2 * rowHeight);
     u8g2.print("序列号:" + config.getChipid());
   } while ( u8g2.nextPage() );
+}
+
+//uint8_t Menu::userInterface(uint8_t currentSelection) {
+//  current_selection = u8g2.userInterfaceSelectionList(
+//    "Cloud Types",
+//    currentSelection, 
+//    string_list);
+//  return current_selection;
+//}
+
+uint8_t Menu::userInterface(uint8_t pos, const char *menus) {
+  u8g2.setFontDirection(0);
+  u8g2.setFontMode(0);
+  u8g2.firstPage();
+  uint8_t menuCount = GetStringLineCnt(menus);
+  uint8_t menuCursor = pos;
+  if (pos > menuCount) menuCursor = menuCount;
+  if (pos < 1) menuCursor = 1;
+  
+  do {
+    u8g2.setFont(u8g2_font_wqy12_t_gb2312b);
+    for (short int i = 0; i < menuCount; i++ ) { 
+      u8g2.setCursor(rowSpace, (i + 1) * rowHeight);
+//      u8g2.print(GetStringLineStart(i, menus));
+      u8g2.print(GetStringLineIndex(i, menus));
+      
+    }
+
+    //游标
+    u8g2.setFont(u8g2_font_unifont_t_symbols);
+    u8g2.drawGlyph(2, menuCursor * rowHeight, 0x23f5);
+  } while ( u8g2.nextPage() );
+  
+  return menuCursor;
+}
+
+uint8_t Menu::GetStringLineCnt(const char *str) {
+  char e;
+  uint8_t line_cnt = 1;
+  if ( str == NULL )
+    return 0;
+  for(;;) {
+    e = *str;
+    if ( e == '\0' )
+      break;
+    str++;
+    if ( e == '\n' )
+      line_cnt++;
+  }
+  return line_cnt;
+}
+
+const char *Menu::GetStringLineStart(uint8_t line_idx, const char *str)
+{
+  char e;
+  uint8_t line_cnt = 1;
+  
+  if ( line_idx == 0 )
+    return str;
+
+  for(;;) {
+    e = *str;
+    if ( e == '\0' )
+      break;
+    str++;
+    if ( e == '\n' ) {
+      if ( line_cnt == line_idx )
+        return str;
+      line_cnt++;
+    }
+  }
+  return NULL;  /* line not found */
 }
